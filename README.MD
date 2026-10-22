@@ -1,1 +1,7 @@
-python3.9.6 -m pip install -r requirements.txt
+Requires Python 3.9 or newer.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```

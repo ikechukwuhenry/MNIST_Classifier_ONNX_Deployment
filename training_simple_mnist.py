@@ -34,7 +34,8 @@ device = (torch.device("mps") if torch.backends.mps.is_available()
 model = SimpleMNISTClassifier().to(device)
 loss_function = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr = 0.01)
-saved_model_path = os.path.join(os.getcwd(), 'hand_digit_classifier/deployment/mnist_model.pt')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+saved_model_path = os.path.join(BASE_DIR, 'deployment/mnist_model.pt')
 
 def train_epoch(model, train_loader, loss_function, optimizer, device, saved_model_path=saved_model_path):
     model.train()
@@ -77,7 +78,7 @@ saved_model.load_state_dict(torch.load(saved_model_path))
 saved_model.eval()
 
 dummy_input = torch.randn(1, 1, 28, 28)
-onnx_file_path = os.path.join(os.getcwd(), 'hand_digit_classifier/deployment/mnist_model.onnx')
+onnx_file_path = os.path.join(BASE_DIR, 'deployment/mnist_model.onnx')
 # Export ot ONNX format
 torch.onnx.export(
         saved_model,                    # Pytorch model

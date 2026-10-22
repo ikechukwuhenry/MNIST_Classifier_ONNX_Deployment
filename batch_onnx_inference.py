@@ -5,7 +5,8 @@ import os
 
 
 # Load onnx
-onnx_model_path = os.path.join(os.getcwd(), 'hand_digit_classifier/deployment/mnist_cnn_model.onnx')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+onnx_model_path = os.path.join(BASE_DIR, 'deployment/mnist_cnn_model.onnx')
 session = ort.InferenceSession(onnx_model_path)
 input_name = session.get_inputs()[0].name      # "images"
 
@@ -18,7 +19,7 @@ def preprocess(path, invert=False):
     arr = (arr - 0.5) / 0.2                     # same normalization as training
     return arr[np.newaxis, :, :]                # shape (1, 28, 28)
 
-paths = [f"hand_digit_classifier/sample_images/img_{i}.jpg"
+paths = [os.path.join(BASE_DIR, f"sample_images/img_{i}.jpg")
          for i in [9, 10, 11, 12, 18, 25, 26, 29, 35]]
 
 # Stack into a batch: (N, 28, 28) -> add the channel dim -> (N, 1, 28, 28)

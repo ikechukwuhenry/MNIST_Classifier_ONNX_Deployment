@@ -4,11 +4,12 @@ import PIL.Image as Image
 import os
 
 # Load ONNX model
-onnx_model_path = os.path.join(os.getcwd(), 'hand_digit_classifier/deployment/mnist_model.onnx')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+onnx_model_path = os.path.join(BASE_DIR, 'deployment/mnist_model.onnx')
 session = ort.InferenceSession(onnx_model_path)
 
 # prepare input data (example: a single MNIST image)
-image_path = "hand_digit_classifier/sample_images/img_10.jpg"   # Replace with your image path
+image_path = os.path.join(BASE_DIR, "sample_images/img_10.jpg")   # Replace with your image path
 image = Image.open(image_path).convert('L')                     # Convert to grayscale
 
 # Resize and normalize the image to match the training preprocessing

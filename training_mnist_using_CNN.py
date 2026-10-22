@@ -38,7 +38,8 @@ loss_function = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr = 0.001)
   
 
-saved_model_path = os.path.join(os.getcwd(), 'hand_digit_classifier/deployment/mnist_cnn_model.pt')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+saved_model_path = os.path.join(BASE_DIR, 'deployment/mnist_cnn_model.pt')
 
 def train_epoch(model, train_loader, loss_function, optimizer, device, saved_model_path):
     model.train()
@@ -79,7 +80,7 @@ saved_model.eval()
 
 dummy_input = torch.randn(1, 1, 28, 28)
 
-onnx_file_path = os.path.join(os.getcwd(), 'hand_digit_classifier/deployment/mnist_cnn_model.onnx')
+onnx_file_path = os.path.join(BASE_DIR, 'deployment/mnist_cnn_model.onnx')
 
 # Export os ONNX format
 torch.onnx.export(

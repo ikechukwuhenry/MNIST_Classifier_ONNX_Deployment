@@ -30,7 +30,7 @@ test_loader = DataLoader(test_dataset, batch_size=1000, shuffle=False)
 
 # GPU support
 device = (torch.device("mps") if torch.backends.mps.is_available() 
-          else torch.device("cuda") if torch.cuda.is_available else torch.device("cpu"))
+          else torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu"))
 
 # instantiate the model
 model = SimpleMNIST_CNN().to(device)

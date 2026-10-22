@@ -29,7 +29,7 @@ train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=1000, shuffle=False)
 
 device = (torch.device("mps") if torch.backends.mps.is_available() 
-          else torch.device("cuda") if torch.cuda.is_available else torch.device("cpu"))
+          else torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu"))
 
 model = SimpleMNISTClassifier().to(device)
 loss_function = nn.CrossEntropyLoss()
